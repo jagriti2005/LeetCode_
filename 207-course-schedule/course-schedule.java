@@ -14,12 +14,10 @@ class Solution {
                 indeg[ele]++;
             }
         }
-        boolean[] vis = new boolean[numCourses]; 
         Queue<Integer> q = new LinkedList<>();
         for(int i=0;i<numCourses;i++){
             if(indeg[i]==0){
                 q.add(i);
-                vis[i] = true;
             }
         }
         while(q.size()>0){
@@ -28,12 +26,11 @@ class Solution {
                 indeg[ele] --;
                 if(indeg[ele]==0){
                     q.add(ele);
-                    vis[ele] = true;
                 }
             }
         }
         for(int i=0;i<numCourses;i++){
-            if(!vis[i]) return false;
+            if(indeg[i] != 0) return false;
         }
         return true;
     }
