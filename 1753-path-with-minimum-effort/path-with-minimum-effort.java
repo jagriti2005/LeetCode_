@@ -30,9 +30,7 @@ class Solution {
                 int nc=cur.c+dc[i];
 
                 if(nr<0||nc<0||nr>=n||nc>=m) continue;
-                int edge=Math.abs(
-                    heights[cur.r][cur.c]-heights[nr][nc]
-                );
+                int edge=Math.abs(heights[cur.r][cur.c]-heights[nr][nc]);
                 int newEffort=Math.max(cur.effort,edge);
                 if(newEffort<dist[nr][nc]){
                     dist[nr][nc]=newEffort;
