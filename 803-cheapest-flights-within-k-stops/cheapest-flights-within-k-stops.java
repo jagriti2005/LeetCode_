@@ -10,15 +10,18 @@ class Solution {
         }
     }
 
-    public int findCheapestPrice(int n, int[][] flights,
+    public int findCheapestPrice(int n, int[][] edges,
                                  int src, int dst, int k) {
 
         ArrayList<ArrayList<Pair>> adj = new ArrayList<>();
 
         for(int i=0;i<n;i++)
             adj.add(new ArrayList<>());
-        for(int[] e : flights)
-            adj.get(e[0]).add(new Pair(e[1], e[2], 0));
+        for(int i=0;i<edges.length;i++){
+            int u = edges[i][0], v = edges[i][1];
+            int w = edges[i][2];
+            adj.get(u).add(new Pair(v,w,0));
+        }
 
         int[] dist = new int[n];
         Arrays.fill(dist, Integer.MAX_VALUE);
