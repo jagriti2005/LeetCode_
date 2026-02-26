@@ -11,8 +11,8 @@ class Solution {
         }
     }
 
-    static int[] dr = {-1, 1, 0 , 0};
-    static int[] dc = {0, 0, -1, 1};
+    int[] dr = {-1, 1, 0 , 0};
+    int[] dc = {0, 0, -1, 1};
 
     public int swimInWater(int[][] grid) {
         int n = grid.length;
