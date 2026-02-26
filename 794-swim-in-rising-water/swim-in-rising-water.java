@@ -16,10 +16,10 @@ class Solution {
 
     public int swimInWater(int[][] grid) {
         int n = grid.length;
-
         boolean[][] vis = new boolean[n][n];
         PriorityQueue<Tuple> pq  = new PriorityQueue<>((a, b) -> Integer.compare(a.time, b.time));
         pq.add(new Tuple(0, 0, grid[0][0]));
+        vis[0][0] = true;
         int max = grid[0][0];
         while(pq.size()>0){
             Tuple curr = pq.poll();
