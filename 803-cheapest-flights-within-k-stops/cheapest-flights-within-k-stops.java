@@ -1,46 +1,37 @@
 class Solution {
-    class Pair{
-        int node;
-        int cost;
-        int stops;
-        Pair(int node,int cost,int stops){
+    class Tuple{
+        int node,costs,stops;
+        Tuple(int node,int costs,int stops){
             this.node = node;
-            this.cost = cost;
+            this.costs = costs;
             this.stops = stops;
         }
     }
-
-    public int findCheapestPrice(int n, int[][] edges,
-                                 int src, int dst, int k) {
-
-        ArrayList<ArrayList<Pair>> adj = new ArrayList<>();
-
-        for(int i=0;i<n;i++)
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        ArrayList<ArrayList<Tuple>> adj = new ArrayList<>();
+        for(int i=0;i<n;i++){
             adj.add(new ArrayList<>());
-        for(int i=0;i<edges.length;i++){
-            int u = edges[i][0], v = edges[i][1];
-            int w = edges[i][2];
-            adj.get(u).add(new Pair(v,w,0));
         }
-
+        for(int i=0;i<flights.length;i++){
+            adj.get(flights[i][0]).add(new Tuple(flights[i][1],flights[i][2],0));
+        }
+        PriorityQueue<Tuple> pq = new PriorityQueue<>((a,b) -> 
+    a.stops == b.stops ? a.costs - b.costs : a.stops - b.stops);
         int[] dist = new int[n];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-
-        Queue<Pair> q = new LinkedList<>();
-        q.add(new Pair(src,0,0));
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        pq.add(new Tuple(src,0,0));
         dist[src] = 0;
-        while(!q.isEmpty()){
-            Pair curr = q.poll();
-            int node = curr.node;
-            int cost = curr.cost;
-            int stops = curr.stops;
-            if(stops > k) continue;
-            for(Pair nei : adj.get(node)){
-                int next = nei.node;
-                int newCost = cost + nei.cost;
-                if(newCost < dist[next]){
-                    dist[next] = newCost;
-                    q.add(new Pair(next, newCost, stops+1));
+        while(pq.size()>0){
+            Tuple top = pq.remove();
+            int currNode = top.node;
+            int currCost = top.costs;
+            int currStop = top.stops;
+            if(currStop == k+1) continue;
+            for(Tuple ele:adj.get(currNode)){
+                int totalCost = currCost + ele.costs;
+                if(totalCost < dist[ele.node]){
+                    dist[ele.node] = totalCost;
+                    pq.add(new Tuple(ele.node,totalCost,currStop+1));
                 }
             }
         }
