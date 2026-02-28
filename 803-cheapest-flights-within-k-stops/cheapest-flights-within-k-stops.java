@@ -15,8 +15,7 @@ class Solution {
         for(int i=0;i<flights.length;i++){
             adj.get(flights[i][0]).add(new Tuple(flights[i][1],flights[i][2],0));
         }
-        PriorityQueue<Tuple> pq = new PriorityQueue<>((a,b) -> 
-    a.stops == b.stops ? a.costs - b.costs : a.stops - b.stops);
+        Queue<Tuple> pq = new LinkedList<>();
         int[] dist = new int[n];
         Arrays.fill(dist,Integer.MAX_VALUE);
         pq.add(new Tuple(src,0,0));
