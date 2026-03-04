@@ -11,11 +11,11 @@ class Solution {
         if(a != b){
             if(size[a] > size[b]){
                 parent[b] = a;
-                size[b] += size[a];
+                size[a] += size[b];
             }
             else{
                 parent[a] = b;
-                size[a] += size[b];
+                size[b] += size[a];
             }
         }
     }
