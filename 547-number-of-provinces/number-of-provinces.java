@@ -3,7 +3,7 @@ class Solution {
     static int[] size;
     public int find(int a){
         if(parent[a] == a) return a;
-        return find(parent[a]);
+        return parent[a] = find(parent[a]);
     }
     public void union(int a,int b){
         a = find(a);
