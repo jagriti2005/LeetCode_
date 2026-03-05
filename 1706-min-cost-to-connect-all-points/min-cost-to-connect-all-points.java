@@ -8,17 +8,6 @@ class Solution {
         }
     }
     public int minCostConnectPoints(int[][] points) {
-        ArrayList<ArrayList<Pair>> adj = new ArrayList<>();
-        for(int i=0;i<points.length;i++){
-            adj.add(new ArrayList<>());
-        }
-        for(int i=0;i<points.length;i++){
-            for(int j=i+1;j<points.length;j++){
-                int dist = Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);
-                adj.get(i).add(new Pair(j, dist));
-                adj.get(j).add(new Pair(i, dist));
-            }
-        }
         boolean[] vis = new boolean[points.length];
         PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)->a.weight-b.weight);
         pq.add(new Pair(0,0));
@@ -30,8 +19,12 @@ class Solution {
                 vis[top.node] = true;
             }
             else continue;
-            for(Pair ele:adj.get(top.node)){
-                pq.add(new Pair(ele.node,ele.weight));
+            for(int i=0;i<points.length;i++){
+                if(i==top.node) continue;
+                int x1 = points[top.node][0], y1 = points[top.node][1];
+                int x2 = points[i][0], y2 = points[i][1];
+                int dist = Math.abs(x1-x2) + Math.abs(y1-y2);
+                pq.add(new Pair(i,dist));
             }
         }
         return cost;
