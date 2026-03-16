@@ -1,83 +1,95 @@
-import java.util.*;
 class Solution {
-    class Pair{
-        int r,c;
-        Pair(int r,int c){
-            this.r = r;
-            this.c = c;
+    class DSU{
+        int[] parent,size;
+        DSU(int n){
+            parent = new int[n];
+            size = new int[n];
+
+            for(int i=0;i<n;i++){
+                parent[i] = i;
+                size[i] = 1;
+            }
+        }
+        int find(int x){
+            if(parent[x] == x) return x;
+            return parent[x] = find(parent[x]);
+        }
+        void union(int a,int b){
+            a = find(a);
+            b = find(b);
+            if(a == b) return;
+            if(size[a] < size[b]){
+                parent[a] = b;
+                size[b] += size[a];
+            }else{
+                parent[b] = a;
+                size[a] += size[b];
+            }
         }
     }
 
     int[] rowD = {-1,1,0,0};
     int[] colD = {0,0,-1,1};
 
-    public int bfs(int i,int j,int id,int[][] grid){
-        int n = grid.length;
-        Queue<Pair> q = new LinkedList<>();
-        q.add(new Pair(i,j));
-
-        grid[i][j] = id;
-        int area = 1;
-
-        while(!q.isEmpty()){
-            Pair cur = q.poll();
-            for(int k=0;k<4;k++){
-                int nr = cur.r + rowD[k];
-                int nc = cur.c + colD[k];
-                if(nr>=0 && nc>=0 && nr<n && nc<n && grid[nr][nc]==1){
-                    grid[nr][nc] = id;
-                    area++;
-                    q.add(new Pair(nr,nc));
-                }
-            }
-        }
-
-        return area;
-    }
-
     public int largestIsland(int[][] grid) {
         int n = grid.length;
-        Map<Integer,Integer> map = new HashMap<>();
-        int id = 2;
-        int max = 0;
+        DSU dsu = new DSU(n*n);
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
-                if(grid[i][j] == 1){
-                    int area = bfs(i,j,id,grid);
-                    map.put(id,area);
-                    max = Math.max(max,area);
 
-                    id++;
+                if(grid[i][j] == 1){
+
+                    for(int k=0;k<4;k++){
+
+                        int ni = i + rowD[k];
+                        int nj = j + colD[k];
+
+                        if(ni>=0 && nj>=0 && ni<n && nj<n && grid[ni][nj]==1){
+
+                            int a = i*n + j;
+                            int b = ni*n + nj;
+
+                            dsu.union(a,b);
+                        }
+                    }
                 }
             }
         }
 
-        // Step 2: try flipping 0
+        int max = 0;
+
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
 
                 if(grid[i][j] == 0){
 
-                    Set<Integer> set = new HashSet<>();
+                    HashSet<Integer> set = new HashSet<>();
                     int area = 1;
 
                     for(int k=0;k<4;k++){
 
-                        int nr = i + rowD[k];
-                        int nc = j + colD[k];
+                        int ni = i + rowD[k];
+                        int nj = j + colD[k];
 
-                        if(nr>=0 && nc>=0 && nr<n && nc<n && grid[nr][nc] > 1){
-                            set.add(grid[nr][nc]);
+                        if(ni>=0 && nj>=0 && ni<n && nj<n && grid[ni][nj]==1){
+
+                            int parent = dsu.find(ni*n + nj);
+
+                            if(!set.contains(parent)){
+                                set.add(parent);
+                                area += dsu.size[parent];
+                            }
                         }
-                    }
-
-                    for(int island : set){
-                        area += map.get(island);
                     }
 
                     max = Math.max(max,area);
                 }
             }
+        }
+
+        for(int i=0;i<n*n;i++){
+            if(dsu.find(i) == i)
+                max = Math.max(max, dsu.size[i]);
         }
 
         return max;
