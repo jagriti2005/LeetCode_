@@ -10,7 +10,6 @@ class Solution {
                 dp[col] = triangle.get(row).get(col) + Math.min(dp[col], dp[col + 1]);
             }
         }
-
         return dp[0];
     }
 }
