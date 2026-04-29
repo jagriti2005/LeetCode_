@@ -19,30 +19,22 @@ class Solution {
 
         // LEFT
         if (type == 1 || type == 3 || type == 5) {
-            if (isValid(i, j, i, j - 1, grid) && dfs(i, j - 1, grid)) {
-                return true;
-            }
+            if (isValid(i, j, i, j - 1, grid) && dfs(i, j - 1, grid)) return true;
         }
 
         // RIGHT
         if (type == 1 || type == 4 || type == 6) {
-            if (isValid(i, j, i, j + 1, grid) && dfs(i, j + 1, grid)) {
-                return true;
-            }
+            if (isValid(i, j, i, j + 1, grid) && dfs(i, j + 1, grid)) return true;
         }
 
         // UP
         if (type == 2 || type == 5 || type == 6) {
-            if (isValid(i, j, i - 1, j, grid) && dfs(i - 1, j, grid)) {
-                return true;
-            }
+            if (isValid(i, j, i - 1, j, grid) && dfs(i - 1, j, grid)) return true;
         }
 
         // DOWN
         if (type == 2 || type == 3 || type == 4) {
-            if (isValid(i, j, i + 1, j, grid) && dfs(i + 1, j, grid)) {
-                return true;
-            }
+            if (isValid(i, j, i + 1, j, grid) && dfs(i + 1, j, grid)) return true;
         }
 
         return false;
