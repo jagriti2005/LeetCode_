@@ -14,14 +14,12 @@ class Solution {
 
         for (int i = n - 1; i >= 0; i--) {
             if (preMax[i] > sufMin) {
-                ans[i] = (i == n - 1) ? preMax[i] : ans[i + 1];
-            } else {
-                ans[i] = preMax[i];
-            }
-
+                if(i==n-1) ans[i] = preMax[i];
+                else ans[i] = ans[i+1];
+            } 
+            else ans[i] = preMax[i];
             sufMin = Math.min(sufMin, nums[i]);
         }
-
         return ans;
     }
 }
