@@ -2,11 +2,8 @@ class Solution {
     public int coinChange(int[] coins, int amount) {
         int n = coins.length;
         int[][] dp = new int[n + 1][amount + 1];
-        for(int j=0;j<=amount;j++){
+        for(int j=1;j<=amount;j++){
             dp[n][j] = Integer.MAX_VALUE;
-        }
-        for(int i=0;i<=n;i++){
-            dp[i][0] = 0;
         }
         for(int i = n - 1; i >= 0; i--) {
             for(int j = 0; j <= amount; j++) {
