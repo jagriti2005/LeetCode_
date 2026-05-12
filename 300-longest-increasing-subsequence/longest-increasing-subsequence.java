@@ -1,18 +1,15 @@
 class Solution {
-    public int lis(int[] nums,int i,int prev,int[][] dp){
-        if(i==nums.length) return 0;
-        if(dp[i][prev+1] != -1) return dp[i][prev+1];
-        int skip = lis(nums,i+1,prev,dp);
-        int take = 0;
-        if(prev == -1 || nums[i] > nums[prev]){
-            take = 1 + lis(nums,i+1,i,dp);
-        }
-        return dp[i][prev+1] = Math.max(take,skip);
-    }
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
-        int[][] dp = new int[n][n+1];
-        for(int[] arr:dp) Arrays.fill(arr,-1);
-        return lis(nums,0,-1,dp);
+        int[][] dp = new int[n+1][n+1];
+        for(int i=n-1;i>=0;i--){
+            for(int j=0;j<=i;j++){
+                int skip = dp[i+1][j];
+                int take = 0;
+                if(j==0 || nums[i] > nums[j-1]) take = 1 + dp[i+1][i+1];
+                dp[i][j] = Math.max(take,skip);
+            }
+        }
+        return dp[0][0];
     }
 }
