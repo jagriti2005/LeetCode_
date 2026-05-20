@@ -5,7 +5,6 @@ class Solution {
 
         int[] dp = new int[nums.length];
         int[] parent = new int[nums.length];
-        parent[0] = 0;
         Arrays.fill(dp,1); 
         int maxLen = 1;
         int curr = 0;
