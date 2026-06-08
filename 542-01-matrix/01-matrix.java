@@ -13,12 +13,10 @@ class Solution {
     public int[][] updateMatrix(int[][] mat) {
         int n = mat.length;
         int m = mat[0].length;
-
         int[][] ans = new int[n][m];
-
-        Queue<Pair> q = new LinkedList<>();
         boolean[][] vis = new boolean[n][m];
-
+        Queue<Pair> q = new LinkedList<>();
+        
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(mat[i][j] == 0){
@@ -29,7 +27,7 @@ class Solution {
             }
         }
 
-        while(q.size()>0){
+        while(q.size() > 0){
             Pair curr = q.poll();
             int r = curr.r;
             int c = curr.c;
@@ -38,13 +36,15 @@ class Solution {
                 int nr = rowD[i] + r;
                 int nc = colD[i] + c;
 
-                if(nr>=0 && nr<n && nc>=0 && nc<m && !vis[nr][nc] && mat[nr][nc] == 1){
-                    vis[nr][nc] = true;
+                if(nr>=0 && nr<n && nc>=0 && nc<m && mat[nr][nc]==1 && !vis[nr][nc]){
                     q.add(new Pair(nr,nc));
+                    vis[nr][nc] = true;
                     ans[nr][nc] = ans[r][c] + 1;
                 }
             }
+
         }
+
         return ans;
     }
 }
