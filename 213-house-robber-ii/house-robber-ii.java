@@ -1,7 +1,7 @@
 class Solution {
     public int rob(int[] nums) {
         int n = nums.length;
-        if(nums.length == 1) return nums[0];
+        if(n == 1) return nums[0];
         return Math.max(amount(nums,0,n-2),amount(nums,1,n-1));
     }
     public int amount(int[] nums,int start,int end){
