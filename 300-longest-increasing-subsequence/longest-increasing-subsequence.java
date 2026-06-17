@@ -1,28 +1,19 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        ArrayList<Integer> ans = new ArrayList<>();
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp,1);
+        int ans = 1;
 
-        for (int num : nums) {
-            int lo = 0;
-            int hi = ans.size() - 1;
-
-            while (lo <= hi) {
-                int mid = lo + (hi - lo) / 2;
-
-                if (ans.get(mid) < num) {
-                    lo = mid + 1;
-                } else {
-                    hi = mid - 1;
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=i;j++){
+                if(nums[i] > nums[j]){
+                    dp[i] = Math.max(dp[i],dp[j]+1);
                 }
             }
-
-            if (lo == ans.size()) {
-                ans.add(num);
-            } else {
-                ans.set(lo, num);
-            }
+            ans = Math.max(ans,dp[i]);
         }
 
-        return ans.size();
+        return ans;
     }
 }
