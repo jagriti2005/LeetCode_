@@ -2,10 +2,10 @@ class Solution {
     public double findMedianSortedArrays(int[] a, int[] b) {
         if(a.length > b.length) return findMedianSortedArrays(b,a);
         int n = a.length, m = b.length;
-        int low = 0, hi = n;
+        int lo = 0, hi = n;
 
-        while(low <= hi){
-            int cut1 = (low+hi)/2;
+        while(lo<=hi){
+            int cut1 = (hi+lo)/2;
             int cut2 = (n+m+1)/2-cut1;
 
             int l1 = (cut1==0) ? Integer.MIN_VALUE : a[cut1-1];
@@ -19,9 +19,8 @@ class Solution {
                 else return Math.max(l1,l2);
             }
             else if(l1 > r2) hi = cut1-1;
-            else low = cut1+1;
+            else lo = cut1+1;
         }
-
         return 0;
     }
 }
