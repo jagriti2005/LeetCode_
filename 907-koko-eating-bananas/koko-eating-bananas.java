@@ -1,10 +1,8 @@
 class Solution {
     public boolean canFinish(int[] piles, int k, int h){
         long hour = 0;
-        for(int p:piles){
-            hour += (long)(p+k-1)/k;
-        }
-        return hour<=h;
+        for(int p:piles) hour += (long)(p+k-1)/k;
+        return hour <= h;
     }
     public int minEatingSpeed(int[] piles, int h) {
         int left = 1;
