@@ -6,9 +6,21 @@ class Solution {
         int sumOdd = 0;
         int sumEven = 0;
 
-        for(int i=1;i<=2*n;i++){
-            if(i%2 == 0) sumEven += i;
-            else sumOdd += i;
+        int temp = n;
+        int i = 2;
+
+        while(temp > 0){
+            sumEven += i;
+            i += 2;
+            temp--;
+        }
+
+        int j = 1;
+
+        while(n > 0){
+            sumOdd += j;
+            j += 2;
+            n--;
         }
 
         return gcd(sumOdd, sumEven);
