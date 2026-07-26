@@ -1,31 +1,34 @@
 class Solution {
-    public boolean isBloom(int[] arr, int m, int k,int days){
+    public boolean isBloom(int[] bloomDay, int m, int k, int days){
         int flower = 0;
-        int bouq = 0;
-        for(int i=0;i<arr.length;i++){
-            if(arr[i] <= days){
+        int bq = 0;
+
+        for(int n:bloomDay){
+            if(n<=days){
                 flower++;
-                if(flower == k){
-                    bouq++;
+                if(flower==k){
+                    bq++;
                     flower = 0;
                 }
             }
             else flower = 0;
         }
-        return bouq >= m;
+
+        return bq >= m;
     }
-    public int minDays(int[] arr, int m, int k) {
-        int start = 1;
-        int end = 0;
+    public int minDays(int[] bloomDay, int m, int k) {
         int ans = -1;
-        for(int i=0;i<arr.length;i++) end = Math.max(end,arr[i]);
-        while(start <= end){
-            int mid = (start+ end)/2;
-            if(isBloom(arr,m,k,mid)){
+        int left = 1;
+        int right = 0;
+        for(int n:bloomDay) right = Math.max(right,n);
+
+        while(left<=right){
+            int mid = (left+right)/2;
+            if(isBloom(bloomDay,m,k,mid)){
                 ans = mid;
-                end = mid-1;
+                right = mid-1;
             }
-            else start = mid+1;
+            else left = mid+1;
         }
         return ans;
     }
