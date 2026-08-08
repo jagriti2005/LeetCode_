@@ -6,7 +6,7 @@ class Solution {
             dp[start+1] = Math.max(nums[start],nums[start+1]);
         }
 
-        for(int i=start=2;i<=end;i++){
+        for(int i=start+2;i<=end;i++){
             dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i]);
         }
 
