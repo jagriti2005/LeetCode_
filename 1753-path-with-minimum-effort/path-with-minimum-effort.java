@@ -11,6 +11,7 @@ class Solution {
     }
     int[] dr={-1,1,0,0};
     int[] dc={0,0,-1,1};
+
     public int minimumEffortPath(int[][] arr) {
         int n=arr.length;
         int m=arr[0].length;
@@ -21,6 +22,7 @@ class Solution {
         PriorityQueue<Node> pq= new PriorityQueue<>((a,b)->a.effort-b.effort);
         pq.add(new Node(0,0,0));
         dist[0][0]=0;
+        
         while(pq.size()>0){
             Node cur=pq.poll();
             if(cur.r==n-1 && cur.c==m-1)
