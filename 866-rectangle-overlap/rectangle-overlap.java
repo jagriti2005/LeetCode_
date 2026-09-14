@@ -1,13 +1,11 @@
 class Solution {
     public boolean isRectangleOverlap(int[] rec1, int[] rec2) {
-        
-        //x1 = left , x2 =right , y1 = bottom , y2 =top4
-        int width = Math.min(rec1[2], rec2[2])
-           - Math.max(rec1[0], rec2[0]);
+        int left = Math.max(rec1[0], rec2[0]);
+        int right = Math.min(rec1[2], rec2[2]);
 
-        int height = Math.min(rec1[3], rec2[3])
-                    - Math.max(rec1[1], rec2[1]);
+        int bottom = Math.max(rec1[1], rec2[1]);
+        int top = Math.min(rec1[3], rec2[3]);
 
-        return width > 0 && height > 0;
+        return left < right && bottom < top;
     }
 }
