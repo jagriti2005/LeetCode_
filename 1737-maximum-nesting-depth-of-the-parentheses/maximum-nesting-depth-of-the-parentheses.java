@@ -4,14 +4,12 @@ class Solution {
         int ans = 0;
 
         for(char ch:s.toCharArray()){
-            if(ch == ')'){
-                count--;
-                continue;
-            }
-            if(ch != '(') continue;
-            count++;
+            if(ch == '('){
+                count++;
 
-            if(ans < count) ans = count;
+                if(ans < count) ans = count;
+            }
+            else if(ch == ')') count--;
         }
 
         return ans;
